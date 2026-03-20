@@ -28,6 +28,27 @@ spotless {
         trimTrailingWhitespace()
         endWithNewline()
     }
+
+    format("markdown") {
+        target("**/*.md")
+        prettier()
+        trimTrailingWhitespace()
+        endWithNewline()
+    }
+
+    format("yaml") {
+        target("**/*.yml", "**/*.yaml")
+        prettier()
+        trimTrailingWhitespace()
+        endWithNewline()
+    }
+
+    format("json") {
+        target("**/*.json")
+        prettier()
+        trimTrailingWhitespace()
+        endWithNewline()
+    }
 }
 
 dependencies {
