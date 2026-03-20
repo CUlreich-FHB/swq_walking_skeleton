@@ -3,6 +3,7 @@ plugins {
     id("org.springframework.boot") version "4.0.4"
     id("io.spring.dependency-management") version "1.1.7"
     id("com.diffplug.spotless") version "6.25.0"
+    id("com.github.spotbugs") version "6.0.26"
 }
 
 group = "at.hochschule.burgenland"
@@ -48,6 +49,25 @@ spotless {
         prettier()
         trimTrailingWhitespace()
         endWithNewline()
+    }
+}
+
+spotbugs {
+    ignoreFailures = false
+    effort = com.github.spotbugs.snom.Effort.MAX
+    reportLevel = com.github.spotbugs.snom.Confidence.LOW
+    excludeFilter = file("spotbugs-exclude.xml") // optional
+}
+
+tasks.withType<com.github.spotbugs.snom.SpotBugsTask> {
+    reports {
+        create("html") {
+            required = true
+            outputLocation = file("${layout.buildDirectory.get()}/reports/spotbugs/spotbugs.html")
+        }
+        create("xml") {
+            required = false
+        }
     }
 }
 
